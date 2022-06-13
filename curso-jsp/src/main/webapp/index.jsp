@@ -35,5 +35,6 @@
 
 	</form>
 	<h4>${msg}</h4>
+	 <h3> ${msg2} </h3>
 </body>
 </html>
