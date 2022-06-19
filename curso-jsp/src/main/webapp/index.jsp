@@ -7,7 +7,7 @@
 <title>Curso JSP</title>
 </head>
 <body>
-	<h1>BEM VINDO AO PROJETO JSP AGORA VAMOS PROGRAMAR DE VERDADE</h1>
+	<h1>BEM VINDO AO PROJETO JSP</h1>
 
 	<!-- <TR> LinhA 
         <TD> Celula
