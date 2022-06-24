@@ -1,6 +1,7 @@
 package servelets;
 
 import java.io.IOException;
+import java.security.Principal;
 
 import javax.print.attribute.PrintRequestAttribute;
 
@@ -40,6 +41,7 @@ public class ServeletsLogin extends HttpServlet {
 
 		String login = request.getParameter("login");
 		String senha = request.getParameter("senha");
+		String url = request.getParameter("url");
 
 		// System.out.println(login);
 		// isEmpty diferente de vazio.
@@ -47,22 +49,26 @@ public class ServeletsLogin extends HttpServlet {
 		if (login != null && !login.isEmpty() && senha != null && !senha.isEmpty()) {
 
 			ModelLogin modelLogin = new ModelLogin();
-
 			modelLogin.setLogin(login);
 			modelLogin.setSenha(senha);
 			/* Simulação de login */
 
 			if (modelLogin.getLogin().equalsIgnoreCase("admin")
 					&& modelLogin.getSenha().equalsIgnoreCase("admin")) {  /*simulação*/ 
-				/* Colocando ana seção e redirecionando para a pagina principal */
+				/* Colocando na seção e redirecionando para a pagina principal */
 				request.getSession().setAttribute("usuario", modelLogin.getLogin());
 				
-				RequestDispatcher redirecionar = request.getRequestDispatcher("Principal/principal.jsp");
+				if(url == null || url.equals(null)) {
+					url = "principal/principal.jsp";
+					
+				}
+				RequestDispatcher redirecionar = request.getRequestDispatcher(url);
 				redirecionar.forward(request, response);
+				
 
 			} else {
 
-				RequestDispatcher redirecionar = request.getRequestDispatcher("index.jsp");
+				RequestDispatcher redirecionar = request.getRequestDispatcher("/index.jsp");
 				request.setAttribute("msg", " Informe o login e senha corretamente!! ");
 				redirecionar.forward(request, response);
 			}

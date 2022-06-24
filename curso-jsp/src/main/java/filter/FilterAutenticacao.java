@@ -21,27 +21,25 @@ import jakarta.servlet.http.HttpSessionContext;
  * @WebFilter("/filterAutenticacao") intercepta todas as requisições que vierem
  * do projeto ou mapeamento o ixdex não passa pelo mapeamento por causa da senha
  */
-@WebFilter(urlPatterns = { "principal/*" }) // intercepta todas as requisições
+@WebFilter(urlPatterns = {"/principal/*"}) // intercepta todas as requisições
 public class FilterAutenticacao implements Filter {
 
 	public FilterAutenticacao() {
 
 	}
 
-	/**
-	 * Encerra o processo quando o servidor é parado Filter#destroy() Mataria os
-	 * processo de conexao com o banco de dados
-	 */
+    /*Encerra os processo quando o servidor é parado*/
+    /*Mataria os processo de conexão com banco*/
 	public void destroy() {
 
 	}
 
-	/**
-	 * Intercepta as requisições e as respostas do sistema tudo que for feito no
-	 * sistema passa por ele Exemplo: ( validar autenticacao de login, dar comit e
-	 * rolback de transações validar e fazer redirecionamento de paginas )
-	 * Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
-	 */
+	/*Intercepta as requisicoes e a as respostas no sistema*/
+	/*Tudo que fizer no sistema vai fazer por aqui*/
+	/*Validação de autenticao*/
+	/*Dar commit e rolback de transaçoes do banco*/
+	/*Validar e fazer redirecionamento de paginas*/
+	
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		// request do filter
@@ -55,12 +53,12 @@ public class FilterAutenticacao implements Filter {
 
 		// agora vamos validar se esta logado se não rediciona para tela de login
 
-		if (usuarioLogado == null
-				|| (usuarioLogado != null && usuarioLogado.isEmpty()) && urlParaautenticar.contains("/principal/ServeletLogin")) {
+		if (usuarioLogado == null || (usuarioLogado != null && usuarioLogado.isEmpty())
+				&& !urlParaautenticar.contains("/principal/ServeletsLogin")) {
 
-			RequestDispatcher redirecionar = request.getRequestDispatcher("/index.jsp?url=" + urlParaautenticar);
+			RequestDispatcher redireciona = request.getRequestDispatcher("/index.jsp?url=" + urlParaautenticar);
 			request.setAttribute("msg", "Por favor reallize o login!");
-			redirecionar.forward(request, response);
+			redireciona.forward(request, response);
 			return; // o return para a execução e retorna para o login.
 
 			/****************************************************************
